@@ -18,7 +18,7 @@ var animatePoints = function (points, ions) {
 
 window.onload = function () {
     if (window.innerHeight > 950) {
-        animatePoints(points, ions);
+        animatePoints(pointsArray, ionsArray);
     }
     var sellingPoints = document.getElementsByClassName('selling-points')[0];
     var scrollDistance = sellingPoints.getBoundingClientRect().top - window.innerHeight + 200;
