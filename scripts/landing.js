@@ -2,23 +2,24 @@ var pointsArray = document.getElementsByClassName('point'),
     ionsArray = document.getElementsByClassName('ion');
 
 var animatePoints = function (points, ions) {
-    var revealPoint = function (i) {
-            points[i].style.opacity = 1;
-            points[i].style.transform = "scaleX(1) translateY(0)";
-            points[i].style.msTransform = "scaleX(1) translateY(0)";
-            points[i].style.WebkitTransform = "scaleX(1) translateY(0)";
-            ions[i].style.transform = "rotate(0deg)";
-            ions[i].style.msTransform = "rotate(0deg)";
-            ions[i].style.WebkitTransform = "rotate(0deg)";
+    var revealPoint = function (points) {
+        points.style.opacity = 1;
+        points.style.transform = "scaleX(1) translateY(0)";
+        points.style.msTransform = "scaleX(1) translateY(0)";
+        points.style.WebkitTransform = "scaleX(1) translateY(0)";
     };
-    for (var i=0;i<points.length;i++) {
-        revealPoint(i);
+    var revealIon = function (ions) {
+        ions.style.transform = "rotate(0deg)";
+        ions.style.msTransform = "rotate(0deg)";
+        ions.style.WebkitTransform = "rotate(0deg)";
     }
+    forEach(points, revealPoint);
+    forEach(ions, revealIon);
 };
 
 window.onload = function () {
     if (window.innerHeight > 950) {
-        animatePoints(points, ions);
+        animatePoints(pointsArray, ionsArray);
     }
     var sellingPoints = document.getElementsByClassName('selling-points')[0];
     var scrollDistance = sellingPoints.getBoundingClientRect().top - window.innerHeight + 200;
