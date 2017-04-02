@@ -28,6 +28,21 @@ var albumMarconi = {
      ]
  };
 
+ var albumInfected = {
+     title: 'Return To The Sauce',
+     artist: 'Infected Mushroom',
+     label: 'OHMega',
+     year: '2017',
+     albumArtUrl: 'assets/images/album_covers/13.png',
+     songs: [
+         { title: 'Flamingo', duration: '8:44' },
+         { title: 'Manipulator', duration: '6:33' },
+         { title: 'Return To The Sauce', duration: '7:46'},
+         { title: 'Groove Attack', duration: '6:48' },
+         { title: 'Gravity Waves', duration: '8:36'}
+     ]
+ };
+
 var createSongRow = function (songNumber, songName, songLength) {
     var template = 
         '<tr class="album-view-song-item">' +
@@ -40,11 +55,14 @@ var createSongRow = function (songNumber, songName, songLength) {
         return template;
 };
 
+var albums = [albumPicasso, albumMarconi, albumInfected],
+    currentAlbum = 0,
+    albumImage = document.getElementsByClassName('album-cover-art')[0];
+
 var setCurrentAlbum = function (album) {
     var albumTitle = document.getElementsByClassName('album-view-title')[0];
     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-    var albumImage = document.getElementsByClassName('album-cover-art')[0];
     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
     albumTitle.firstChild.nodeValue = album.title;
@@ -59,6 +77,19 @@ var setCurrentAlbum = function (album) {
     }
 };
 
+var cycleAlbums = function () {
+    if (currentAlbum === albums.length - 1) {
+        setCurrentAlbum(albumPicasso);
+        currentAlbum = 0;
+    } else {
+        setCurrentAlbum(albums[currentAlbum + 1]);
+        currentAlbum++;
+    }
+};
+
 window.onload = function() {
     setCurrentAlbum(albumPicasso);
+    albumImage.addEventListener('click', function (e) {
+        cycleAlbums();
+    });
 };
