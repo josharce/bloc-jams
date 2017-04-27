@@ -6,6 +6,8 @@ var setSong = function (songNumber) {
     if (songNumber) {
         currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
         currentlyPlayingSongNumber = trackIndex(currentAlbum, currentSongFromAlbum) + 1;
+        $('.current-time').text('0:00');
+        $('.total-time').text(filterTimeCode(currentSongFromAlbum.duration));
     } else {
         currentSongFromAlbum = null;
         currentlyPlayingSongNumber = null;
@@ -42,7 +44,7 @@ var createSongRow = function (songNumber, songName, songLength) {
         '<tr class="album-view-song-item">' +
         '   <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' +
         '   <td class="song-item-title">' + songName + '</td>' +
-        '   <td class="song-item-duration">' + songLength + '</td>' +
+        '   <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>' +
         '</tr>'
         ;
 
@@ -236,6 +238,18 @@ var previousSong = function () {
 
     $previousSongNumberCell.html(pauseButtonTemplate);
     $lastSongNumberCell.html(lastSongNumber);
+};
+
+var filterTimeCode = function (timeInSeconds) {
+    var seconds = parseFloat(timeInSeconds);
+    var wholeMinutes = Math.floor(seconds/60);
+    var wholeSeconds = Math.round(seconds - wholeMinutes * 60);
+    
+    if (wholeSeconds < 10) {
+        return wholeMinutes + ':0' + wholeSeconds;
+    } else {
+        return wholeMinutes + ':' + wholeSeconds;
+    }
 };
 
 var updatePlayerBarSong = function () {
